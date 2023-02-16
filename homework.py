@@ -11,7 +11,9 @@ class Training:
                  duration: float,
                  weight: float,
                  ) -> None:
-        pass
+        self.action = action
+        self.duration = duration
+        self.weight = weight
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""

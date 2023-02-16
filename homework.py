@@ -38,7 +38,11 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    pass
+    CALORIES_MEAN_SPEED_MULTIPLIER = 18
+    CALORIES_MEAN_SPEED_SHIFT = 1.79
+
+    def __init__(self, action: int, duration: float, weight: float) -> None:
+        super().__init__(action, duration, weight)
 
 
 class SportsWalking(Training):

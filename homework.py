@@ -1,3 +1,6 @@
+M_IN_KM = 1000  # meter to km
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     pass
@@ -5,6 +8,7 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
+    LEN_STEP = 0.65  # length of the step in meters
 
     def __init__(self,
                  action: int,
@@ -44,6 +48,7 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
+    LEN_STEP = 1.38  # length of the stroke in meters
     pass
 
 

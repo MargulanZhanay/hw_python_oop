@@ -23,9 +23,9 @@ class Training:
         """Получить дистанцию в км."""
         return self.action * self.LEN_STEP / M_IN_KM
 
-    def get_mean_speed(self) -> float:
+    def get_mean_speed(self, distance) -> float:
         """Получить среднюю скорость движения."""
-        pass
+        return distance / self.duration
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -54,7 +54,14 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    pass
+    commands = {
+        'SWM': Swimming,
+        'RUN': Running,
+        'WLK': SportsWalking
+    }
+    for command in commands:
+        if workout_type is command:
+            return commands[command](data)
 
 
 def main(training: Training) -> None:

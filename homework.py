@@ -42,7 +42,10 @@ class Running(Training):
     CALORIES_MEAN_SPEED_SHIFT = 1.79
     H_IN_MIN = 60  # часы в минуты
 
-    def __init__(self, action: int, duration: float, weight: float) -> None:
+    def __init__(self,
+                 action: int,
+                 duration: float,
+                 weight: float) -> None:
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self, mean_speed) -> float:
@@ -54,7 +57,13 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    pass
+    def __init__(self,
+                 action: int,
+                 duration: float,
+                 weight: float,
+                 height: int) -> None:
+        super().__init__(action, duration, weight)
+        self.height = height
 
 
 class Swimming(Training):

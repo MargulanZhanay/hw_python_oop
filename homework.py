@@ -1,4 +1,4 @@
-M_IN_KM = 1000  # meter to km
+M_IN_KM = 1000  # Meter to km.
 
 
 class InfoMessage:
@@ -8,7 +8,7 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
-    LEN_STEP = 0.65  # length of the step in meters
+    LEN_STEP = 0.65  # Length of the step in meters.
 
     def __init__(self,
                  action: int,
@@ -40,7 +40,7 @@ class Running(Training):
     """Тренировка: бег."""
     CALORIES_MEAN_SPEED_MULTIPLIER = 18
     CALORIES_MEAN_SPEED_SHIFT = 1.79
-    H_IN_MIN = 60  # часы в минуты
+    H_IN_MIN = 60  # Hours into minutes.
 
     def __init__(self,
                  action: int,
@@ -49,7 +49,7 @@ class Running(Training):
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self, mean_speed) -> float:
-        duration_in_min: int = self.duration * 60  # время тренировки в минутах
+        duration_in_min: int = self.duration * 60  # Training time in min.
         return ((self.CALORIES_MEAN_SPEED_MULTIPLIER * mean_speed
                  + self.CALORIES_MEAN_SPEED_SHIFT) * self.weight
                 / M_IN_KM * duration_in_min)
@@ -57,6 +57,10 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
+    K_1 = 0.035  # Coefficient for counting calories.
+    K_2 = 0.029  # Coefficient for counting calories.
+    KMH_IN_MS = 3.6  # Km/h to m/sec.
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -65,10 +69,13 @@ class SportsWalking(Training):
         super().__init__(action, duration, weight)
         self.height = height
 
+    def get_spent_calories(self) -> float:
+        return
+
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    LEN_STEP = 1.38  # length of the stroke in meters
+    LEN_STEP = 1.38  # Length of the stroke in meters.
     pass
 
 

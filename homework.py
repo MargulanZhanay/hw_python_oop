@@ -1,6 +1,3 @@
-H_IN_MIN = 60  # Hours into minutes.
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
@@ -25,6 +22,7 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
+    H_IN_MIN = 60  # Hours into minutes.
     M_IN_KM = 1000  # Meter to km.
     LEN_STEP = 0.65  # Length of the step in meters.
 
@@ -64,8 +62,8 @@ class Running(Training):
     CALORIES_MEAN_SPEED_SHIFT = 1.79
 
     def get_spent_calories(self) -> float:
-        duration_in_min: float = self.duration * H_IN_MIN  # Training time in
-        # minutes.
+        duration_in_min: float = self.duration * self.H_IN_MIN  # Training
+        # time in minutes.
         return ((self.CALORIES_MEAN_SPEED_MULTIPLIER * self.get_mean_speed()
                  + self.CALORIES_MEAN_SPEED_SHIFT) * self.weight
                 / self.M_IN_KM * duration_in_min)
@@ -89,8 +87,8 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         mean_speed_in_ms = self.get_mean_speed() * self.KMH_IN_MS  # Speed
         # conversion from km/h to m/s.
-        duration_in_min: float = self.duration * H_IN_MIN  # Training time in
-        # minutes.
+        duration_in_min: float = self.duration * self.H_IN_MIN  # Training
+        # time in minutes.
         return ((self.K_1 * self.weight + (mean_speed_in_ms**2 / self.height
                  / self.CM_IN_M) * self.K_2 * self.weight) * duration_in_min)
 
@@ -99,6 +97,7 @@ class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP = 1.38  # Length of the stroke in meters.
     AV_SPEED_VAL = 1.1
+    SPEED_MULTIPLIER = 2
 
     def __init__(self,
                  action: int,
@@ -115,8 +114,8 @@ class Swimming(Training):
                 / self.duration)
 
     def get_spent_calories(self) -> float:
-        return ((self.get_mean_speed() + self.AV_SPEED_VAL) * 2 * self.weight
-                * self.duration)
+        return ((self.get_mean_speed() + self.AV_SPEED_VAL)
+                * self.SPEED_MULTIPLIER * self.weight * self.duration)
 
 
 def read_package(workout_type: str, data: list) -> Training:

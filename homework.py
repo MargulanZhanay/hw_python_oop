@@ -82,6 +82,7 @@ class SportsWalking(Training):
     K_1 = 0.035  # Coefficient for counting calories.
     K_2 = 0.029  # Coefficient for counting calories.
     KMH_IN_MS = 3.6  # Km/h to m/sec.
+    CM_IN_M = 100  # Centimetres to meters
 
     def __init__(self,
                  action: int,
@@ -91,12 +92,13 @@ class SportsWalking(Training):
         super().__init__(action, duration, weight)
         self.height = height
 
-    def get_spent_calories(self, mean_speed) -> float:
-        mean_speed_in_ms = mean_speed / self.KMH_IN_MS  # Speed km/h to m/s.
+    def get_spent_calories(self) -> float:
+        mean_speed_in_ms = self.get_mean_speed() / self.KMH_IN_MS  # Speed
+        # conversion from km/h to m/s.
         duration_in_min: float = self.duration * H_IN_MIN  # Training time in
         # minutes.
-        return ((self.K_1 * self.weight + (mean_speed_in_ms**2 / self.height)
-                 * self.K_2 * self.weight) * duration_in_min)
+        return ((self.K_1 * self.weight + (mean_speed_in_ms**2 / self.height
+                 / self.CM_IN_M) * self.K_2 * self.weight) * duration_in_min)
 
 
 class Swimming(Training):

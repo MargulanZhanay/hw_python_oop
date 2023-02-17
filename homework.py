@@ -63,16 +63,10 @@ class Running(Training):
     CALORIES_MEAN_SPEED_MULTIPLIER = 18
     CALORIES_MEAN_SPEED_SHIFT = 1.79
 
-    def __init__(self,
-                 action: int,
-                 duration: float,
-                 weight: float) -> None:
-        super().__init__(action, duration, weight)
-
-    def get_spent_calories(self, mean_speed) -> float:
+    def get_spent_calories(self) -> float:
         duration_in_min: float = self.duration * H_IN_MIN  # Training time in
         # minutes.
-        return ((self.CALORIES_MEAN_SPEED_MULTIPLIER * mean_speed
+        return ((self.CALORIES_MEAN_SPEED_MULTIPLIER * self.get_mean_speed()
                  + self.CALORIES_MEAN_SPEED_SHIFT) * self.weight
                 / M_IN_KM * duration_in_min)
 

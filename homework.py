@@ -116,8 +116,8 @@ class Swimming(Training):
     def get_mean_speed(self) -> float:
         return self.length_pool * self.count_pool / M_IN_KM / self.duration
 
-    def get_spent_calories(self, mean_speed) -> float:
-        return (mean_speed + 1.1) * 2 * self.weight * self.duration
+    def get_spent_calories(self) -> float:
+        return (self.get_mean_speed() + 1.1) * 2 * self.weight * self.duration
 
 
 def read_package(workout_type: str, data: list) -> Training:
@@ -129,7 +129,7 @@ def read_package(workout_type: str, data: list) -> Training:
     }
     for command in commands:
         if workout_type is command:
-            return commands[command](data)
+            return commands[workout_type](*data)
 
 
 def main(training: Training) -> None:
@@ -146,5 +146,5 @@ if __name__ == '__main__':
     ]
 
     for workout_type, data in packages:
-        training = read_package(workout_type, data)
+        training = read_package(workout_type, *data)
         main(training)

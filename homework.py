@@ -4,7 +4,17 @@ H_IN_MIN = 60  # Hours into minutes.
 
 class InfoMessage:
     """Информационное сообщение о тренировке."""
-    pass
+    def __init__(self,
+                 training_type: str,
+                 duration: float,
+                 distance: float,
+                 speed: float,
+                 calories: float) -> None:
+        self.training_type = training_type
+        self.duration = duration
+        self.distance = distance
+        self.speed = speed
+        self.calories = calories
 
 
 class Training:

@@ -16,6 +16,13 @@ class InfoMessage:
         self.speed = speed
         self.calories = calories
 
+    def get_message(self) -> str:
+        return (f'Тип тренировки: {self.training_type}; '
+                f'Длительность: {self.duration}; '
+                f'Дистанция: {self.distance}; '
+                f'Ср. скорость: {self.speed}; '
+                f'Потрачено ккал: {self.calories}.')
+
 
 class Training:
     """Базовый класс тренировки."""
@@ -128,7 +135,7 @@ def read_package(workout_type: str, data: list) -> Training:
 def main(training: Training) -> None:
     """Главная функция."""
     info = training.show_training_info()
-    print()
+    print(info.get_message())
 
 
 if __name__ == '__main__':
